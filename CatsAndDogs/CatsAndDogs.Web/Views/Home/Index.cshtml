@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="col-sm-12">
+    <form id="form" enctype="multipart/form-data" method="post" style="border:1px solid gray; padding:20px;">
+        <h3>Select the file to score prediction</h3>
+        <div class="form-group" style="margin:20px;">
+            <input id="inputFile" name="image" type="file" class="form-control-file" onchange="PredictFile()    "/>
+        </div>           
+    </form>    
+        <div data-bind="visible: Show" style="border:1px solid gray; padding:20px; margin-top:40px;">
+            <h2>Prediction result</h2>    
+                <div style="margin:20px;">
+                    <div style="margin:20px;">
+                        <strong style="width:100px; margin-right:50px;">Predicted label:
+                            </strong><span data-bind="text:Prediction"></span>
+                    </div>
+                    <img width="400" data-bind="attr:{src: Base64}" />
+                </div>
+                <div style="margin:20px; ">
+                    <h3>Scores statistics:</h3>
+                    <div class="col-12">
+                        <table class="table" style="margin-top:20px;">
+                            <thead>
+                                <tr><th>Label</th><th>Score</th></tr>
+                            </thead>
+                            <tbody  data-bind="foreach: Scores">                                
+                                    <tr>
+                                        <td data-bind="text:label"></td>
+                                        <td data-bind="text:score"></td>
+                                    </tr>                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                        
+        </div>
+</div>
+
+@section Scripts{ 
+    <script>
+        window.viewModel = new ResultViewModel();
+        ko.applyBindings(viewModel);
+    </script>
+}
